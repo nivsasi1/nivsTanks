@@ -4,6 +4,7 @@ import tankBG from "../../assets/tank.png";
 import logo from "../../assets/zevet100.jpg";
 import { useNavigate } from "react-router-dom";
 //type handler = () => void;
+import { updateLogin } from "../../http.ts"
 
 type Input = {
   pernr: number;
@@ -14,11 +15,19 @@ export const LoginForm: React.FC = () => {
     const navigate = useNavigate();
 
     const { register, handleSubmit, formState } = useForm<Input>();
-    const { errors } = formState;  const onSubmit: SubmitHandler<Input> = (data) =>
+    const { errors } = formState;  const onSubmit: SubmitHandler<Input> = async (data) =>
     {
         //fetch if user/admin, if yes nav, else error not existing
-        navigate('/main')
         console.log(JSON.stringify(data));
+
+       // await updateLogin(JSON.stringify(data))
+        const data1 = { "username" : "8604191", "pass" : "lmao"}
+        const response = await fetch('http://localhost:5173/login', {method:'POST', body: JSON.stringify(data1), headers:{'Content-Type': 'application/json'}})
+        const resData = await response.json();
+        if(!response.ok){
+            throw new Error('התחברות נכשלה, בעיה במערכת')
+        }
+        console.log( resData.message);
     }
   //as of now checking if its a number, between 6-9 chars
 

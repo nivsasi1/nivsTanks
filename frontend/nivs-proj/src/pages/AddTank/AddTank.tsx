@@ -108,7 +108,7 @@ export const AddTank: React.FC = () => {
                 value={alignment}
                 exclusive
                 onChange={handleChange}
-                sx={{ ml: "auto", mr: "0" }}
+                sx={{ ml: "auto", mr: "0"}}
                 style={{ alignSelf: "end" }}
               >
                 <ToggleButton value="notkshir">לא כשיר</ToggleButton>
