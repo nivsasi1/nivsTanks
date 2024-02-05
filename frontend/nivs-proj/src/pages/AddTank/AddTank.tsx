@@ -20,8 +20,24 @@ type Input = {
 export const AddTank: React.FC = () => {
   const { register, handleSubmit, formState } = useForm<Input>();
   const { errors } = formState;
-  const onSubmit: SubmitHandler<Input> = (data) =>
+  const onSubmit: SubmitHandler<Input> = (data) => {
+    
     console.log(JSON.stringify(data) + alignment);
+    const i = alignment;
+    let kshirot;
+    if (i === 'kshir'){
+      kshirot = 1;
+    } else if (i === 'notkshir'){
+      kshirot = 0;
+    } else {
+      //kshir was unseletcted and its a required data, pop error
+      return
+    }
+    const dataToSend = {...data, kshirot:kshirot}
+    console.log(dataToSend);
+    //fetch post addtank with dataToSend
+    //clear every input field for another enterin of fields
+  }
   //as of now checking if its a number, between 6-9 chars
   const [alignment, setAlignment] = useState("kshir");
 

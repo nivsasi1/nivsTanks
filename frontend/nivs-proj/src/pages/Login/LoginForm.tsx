@@ -2,9 +2,8 @@ import { Button, Paper, TextField, Typography } from "@mui/material";
 import { useForm, SubmitHandler } from "react-hook-form";
 import tankBG from "../../assets/tank.png";
 import logo from "../../assets/zevet100.jpg";
-import { useNavigate } from "react-router-dom";
 //type handler = () => void;
-import { updateLogin } from "../../http.ts"
+import { loginTry, updateLogin } from "../../http.ts"
 
 type Input = {
   pernr: number;
@@ -12,7 +11,6 @@ type Input = {
 
 export const LoginForm: React.FC = () => {
 
-    const navigate = useNavigate();
 
     const { register, handleSubmit, formState } = useForm<Input>();
     const { errors } = formState;  const onSubmit: SubmitHandler<Input> = async (data) =>
@@ -21,14 +19,15 @@ export const LoginForm: React.FC = () => {
         console.log(JSON.stringify(data));
 
        // await updateLogin(JSON.stringify(data))
-        const data1 = { "username" : "8604191", "pass" : "lmao"}
-        const response = await fetch('http://localhost:5173/login', {method:'POST', body: JSON.stringify(data1), headers:{'Content-Type': 'application/json'}})
-        const resData = await response.json();
-        if(!response.ok){
-            throw new Error('התחברות נכשלה, בעיה במערכת')
-        }
-        console.log( resData.message);
-    }
+        const data1 = { "username" : data.pernr, "password" : "8604191"}
+        await loginTry(data1)
+
+        
+        //console.log( resData.message);
+        //is auth? navigate mainpage. else print not existing user, --- mainpage, --- ismanager, load info of manager, else load byGdud
+
+        //how to get to the session
+      }
   //as of now checking if its a number, between 6-9 chars
 
   return (
