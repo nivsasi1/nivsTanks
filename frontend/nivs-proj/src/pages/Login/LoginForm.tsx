@@ -2,8 +2,8 @@ import { Button, Paper, TextField, Typography } from "@mui/material";
 import { useForm, SubmitHandler } from "react-hook-form";
 import tankBG from "../../assets/tank.png";
 import logo from "../../assets/zevet100.jpg";
-import { useNavigate } from "react-router-dom";
 //type handler = () => void;
+import { loginTry, updateLogin } from "../../http.ts"
 
 type Input = {
   pernr: number;
@@ -11,15 +11,23 @@ type Input = {
 
 export const LoginForm: React.FC = () => {
 
-    const navigate = useNavigate();
 
     const { register, handleSubmit, formState } = useForm<Input>();
-    const { errors } = formState;  const onSubmit: SubmitHandler<Input> = (data) =>
+    const { errors } = formState;  const onSubmit: SubmitHandler<Input> = async (data) =>
     {
         //fetch if user/admin, if yes nav, else error not existing
-        navigate('/main')
         console.log(JSON.stringify(data));
-    }
+
+       // await updateLogin(JSON.stringify(data))
+        const data1 = { "username" : data.pernr, "password" : "8604191"}
+        await loginTry(data1)
+
+        
+        //console.log( resData.message);
+        //is auth? navigate mainpage. else print not existing user, --- mainpage, --- ismanager, load info of manager, else load byGdud
+
+        //how to get to the session
+      }
   //as of now checking if its a number, between 6-9 chars
 
   return (

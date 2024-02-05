@@ -3,7 +3,8 @@ import { Graph } from "./components/Graph";
 import { VerticalChart } from "./components/graphs/VerticalChart";
 import { DoughnutChart } from "./components/graphs/DoughnutChart";
 import { theme } from "../../themes/themePalatte";
-import { useState } from "react";
+import { useContext } from "react";
+import { TankContext } from "../../store/tank-info-context";
 
 type mainProps = {
   pernr: string;
@@ -11,57 +12,17 @@ type mainProps = {
   admin: boolean;
 };
 
-const MakatsData = [
-  {
-    id: 1,
-    makat: 2016,
-    userGain: 80000,
-    precent: 823,
-  },
-  {
-    id: 2,
-    makat: 2017,
-    userGain: 45677,
-    precent: 345,
-  },
-  {
-    id: 3,
-    makat: 2018,
-    userGain: 78888,
-    precent: 555,
-  },
-  {
-    id: 4,
-    makat: 2019,
-    userGain: 90000,
-    precent: 4555,
-  },
-  {
-    id: 5,
-    makat: 2020,
-    userGain: 4300,
-    precent: 234,
-  },
-];
+
 
 export const MainPage: React.FC<mainProps> = (props) => {
   const color = theme.palette.secondary.main;
   console.log(color);
-  const [makatsData, setMakatsData] = useState({
-    //labels is precentage
-    labels: MakatsData.map((data) => data.makat.toString()),
-    datasets: [
-      {
-        label: "כשירות לפי מק״ט",
-        data: MakatsData.map((data) => data.precent),
-        backgroundColor: color,
-        borderRadius: 5,
-      },
-    ],
-  });
+  const tankData = useContext(TankContext)
+
+  
   return (
     <>
-      <div>
+    <div>
         <Typography
           variant="h5"
           sx={{ mt: "3rem", mr: "3rem", textAlign: "right", fontWeight: "600" }}
@@ -91,12 +52,12 @@ export const MainPage: React.FC<mainProps> = (props) => {
         }}
       >
         <Graph flex={0.6} title="כשירות לפי מק״ט">
-          <VerticalChart data={makatsData} />
+          <VerticalChart data={tankData.verticalTanksInfo} />
         </Graph>
         <Graph flex={0.3} title="אחוזי כשירות">
-          <DoughnutChart precent={70} />
+          <DoughnutChart precent={tankData.doughnutChartInfo} />
         </Graph>
       </div>
-    </>
+      </>
   );
 };

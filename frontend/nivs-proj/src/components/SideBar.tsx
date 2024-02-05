@@ -6,7 +6,6 @@ import { NavLink } from "react-router-dom";
 export const SideBar: React.FC<{ isAdministrator: boolean }> = ({
   isAdministrator,
 }) => {
-  let activebutton = 0
   return (
     <div style={{ position: "relative", height: "100%", overflow: "hidden" }}>
       <img className="tankBGSideBar" src={tankBG} alt="background" />

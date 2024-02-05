@@ -11,12 +11,12 @@ export const Page: React.FC<{ children: React.ReactNode, admin: boolean }> = ({ 
         height: "100vh",
       }}
     >
+      <Box sx={{ flexGrow: "1", height: "100vh", backgroundColor: "#FBFBFF" }}>
+        {children}
+      </Box>
       {/* change to secondary color the bg so cleaner */}
       <Box sx={{ width: "15rem", height: "100vh", backgroundColor: "#899BF8" }}>
         <SideBar isAdministrator={admin} />
-      </Box>
-      <Box sx={{ flexGrow: "1", height: "100vh", backgroundColor: "#FBFBFF" }}>
-        {children}
       </Box>
     </Box>
   );

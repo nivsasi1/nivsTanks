@@ -20,6 +20,7 @@ input::-webkit-inner-spin-button {
 
 body {
   background-color: "#FBFBFF";
+  
 }
 
 img.tankBG {
@@ -47,12 +48,13 @@ img.tankBGSideBar {
 }
 img.zevet100 {
   position: fixed;
-  top: 1rem;
-  left: 1rem;
+  top: 3rem;
+  right: 4.8rem;
   mix-blend-mode: multiply;
   width: 5rem;
   height: auto;
   filter: contrast(120%);
+  /* change side to right */
 }
 .card {
   padding: 2em;
