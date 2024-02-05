@@ -40,6 +40,16 @@ export const SideBar: React.FC<{ isAdministrator: boolean }> = ({
           </NavLink>
         )}
       </Box>
+      <NavLink style={{position:'absolute',bottom:'5%', width:"50%", right:'22%', zIndex:'1'}} to="/">
+      <Button
+              size="large"
+              color="logoutB"
+              variant="contained"
+              fullWidth
+            >
+              התנתקות
+            </Button>
+      </NavLink>
     </div>
   );
 };

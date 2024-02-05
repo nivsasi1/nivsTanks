@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useState } from "react";
+import { addTank } from "../../http";
 
 type Input = {
   carNumber: number;
@@ -20,24 +21,27 @@ type Input = {
 export const AddTank: React.FC = () => {
   const { register, handleSubmit, formState } = useForm<Input>();
   const { errors } = formState;
-  const onSubmit: SubmitHandler<Input> = (data) => {
-    
+  const onSubmit: SubmitHandler<Input> = async (data) => {
     console.log(JSON.stringify(data) + alignment);
     const i = alignment;
     let kshirot;
-    if (i === 'kshir'){
+    if (i === "kshir") {
       kshirot = 1;
-    } else if (i === 'notkshir'){
+    } else if (i === "notkshir") {
       kshirot = 0;
     } else {
       //kshir was unseletcted and its a required data, pop error
-      return
+      return;
     }
-    const dataToSend = {...data, kshirot:kshirot}
+    const dataToSend = { ...data, kshirot: kshirot };
     console.log(dataToSend);
+    console.log(await addTank(dataToSend)) 
+      //register.reset();
+    
+
     //fetch post addtank with dataToSend
     //clear every input field for another enterin of fields
-  }
+  };
   //as of now checking if its a number, between 6-9 chars
   const [alignment, setAlignment] = useState("kshir");
 
@@ -124,7 +128,7 @@ export const AddTank: React.FC = () => {
                 value={alignment}
                 exclusive
                 onChange={handleChange}
-                sx={{ ml: "auto", mr: "0"}}
+                sx={{ ml: "auto", mr: "0" }}
                 style={{ alignSelf: "end" }}
               >
                 <ToggleButton value="notkshir">לא כשיר</ToggleButton>
