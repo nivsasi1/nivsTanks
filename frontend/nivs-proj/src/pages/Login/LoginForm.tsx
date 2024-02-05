@@ -3,7 +3,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import tankBG from "../../assets/tank.png";
 import logo from "../../assets/zevet100.jpg";
 //type handler = () => void;
-import { loginTry, updateLogin } from "../../http.ts"
+import { loginTry } from "../../http.ts"
 
 type Input = {
   pernr: number;

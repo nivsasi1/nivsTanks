@@ -9,9 +9,10 @@ export const Page: React.FC<{ children: React.ReactNode, admin: boolean }> = ({ 
         flexDirection: "row",
         width: "100vw",
         height: "100vh",
+        
       }}
     >
-      <Box sx={{ flexGrow: "1", height: "100vh", backgroundColor: "#FBFBFF" }}>
+      <Box sx={{ flexGrow: "1", height: "100vh", backgroundColor: "#FBFBFF",  overflowY: "auto"}}>
         {children}
       </Box>
       {/* change to secondary color the bg so cleaner */}
