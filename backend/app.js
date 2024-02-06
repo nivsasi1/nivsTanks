@@ -7,8 +7,11 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const CarData = require("./models/carData.cjs");
 const User = require("./models/users.cjs");
+const cookieParser = require("cookie-parser");
+const cors = require("cors");
 
 const app = express();
+app.set('trust proxy', 1);
 
 app.use(
   bodyParser.urlencoded({
@@ -16,37 +19,41 @@ app.use(
   })
 );
 app.use(express.json());
+app.use(cookieParser());
+
 // CORS
 
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*"); // allow all domains
-  // res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-  // res.setHeader('Accept', "application/json");
-  // res.setHeader('Content-Type', "application/json");
-  // res.header('Access-Control-Allow-Credentials', true);
-
   next();
 });
+
+//middlware
+app.use(
+	cors({
+		origin: "http://localhost:5173",
+		credentials: true,
+	})
+);
 
 // passport.authenticate
 
 app.use(
   session({
-    secret: "nivs tank project",
+    secret: "nivstankproject",
     resave: false,
     saveUninitialized: false,
     cookie: {
-      secure: true,
+      secure: false, // Set to true if using HTTPS
+			// httpOnly: true,
       maxAge: 1000 * 60 * 60 * 24,
     },
   })
 );
 
-app.use(passport.initialize());
-app.use(passport.session());
 
-mongoose.connect("mongodb://localhost:27017/db", {
+mongoose.connect("mongodb://127.0.0.1:27017/db", {
   useNewUrlParser: true,
 });
 
@@ -68,13 +75,16 @@ passport.use(
 
 passport.serializeUser((user, cb) => {
   console.log(user + "2");
-  cb(null, { pernr: user.pernr, isManager: user.isManager });
+  cb(null, { pernr: user.pernr});
 });
 
-passport.deserializeUser((user, done) => {
+passport.deserializeUser(async (user, done) => {
   console.log(user + "1");
-  return done(null, doesUserExist(user.pernr));
+  return done(null, await doesUserExist(user.pernr));
 });
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 const isManager = (req) => {
   return req.user && req.user.isManager == 1;
@@ -104,6 +114,7 @@ app.post(
 
 app.get("/isLoggedIn", (req, res) => {
   console.log(req.user + "sadsa");
+  console.log(JSON.stringify(req.session) + ":session");
 
   if (req.isAuthenticated()) {
     res.send(JSON.stringify({ message: "authenticated" }));
