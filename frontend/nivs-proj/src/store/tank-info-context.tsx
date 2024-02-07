@@ -73,7 +73,6 @@ export const loginTry = async (data: loginInfo) => {
     return await response.json();
   } catch (e) {
     console.error(e);
-    console.log("login failed");
     return { message: "something went wrong" };
   }
 };
@@ -182,7 +181,7 @@ export const TankContextProvider: React.FC<children1> = ({ children }) => {
 
         //keys are the makats of the tanks
         const keys = Object.keys(tankTemp);
-        
+
         const verticalTanksInfo = {
           labels: keys,
           datasets: [
@@ -199,7 +198,7 @@ export const TankContextProvider: React.FC<children1> = ({ children }) => {
 
         return { Tanks, verticalTanksInfo, doughnutChartInfo, countKshir };
       };
-      
+
       getTanks()
         .then((data) => {
           setTankData(turnDataUseable(data));
