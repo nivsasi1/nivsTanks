@@ -1,6 +1,9 @@
 import {
+  Alert,
   Box,
   Button,
+  Collapse,
+  IconButton,
   Paper,
   Stack,
   TextField,
@@ -12,17 +15,21 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { useContext, useEffect, useState } from "react";
 import { TankContext, addTank } from "../../store/tank-info-context";
 import { useNavigate } from "react-router-dom";
+import CloseIcon from "@mui/icons-material/Close";
 
 type Input = {
   carNumber: number;
   makat: number;
   gdud: number;
 };
+let error = "";
 
 export const AddTank: React.FC = () => {
   const { register, handleSubmit, formState } = useForm<Input>();
-  const { userData } = useContext(TankContext);
+  const { userData, setMainPage } = useContext(TankContext);
   const navigate = useNavigate();
+  const [open, setOpen] = useState(false);
+  const [openSuccess, setOpenSuccess] = useState(false);
 
   //navigate to mainpage is user isnt manager, navigate to login page if isnt loggedin
   useEffect(() => {
@@ -32,28 +39,42 @@ export const AddTank: React.FC = () => {
     if (!userData.isLogged) {
       return navigate("/");
     }
+    setMainPage(false);
   }, [userData]);
 
   const { errors } = formState;
-  const onSubmit: SubmitHandler<Input> = async (data) => {
+  const onSubmit: SubmitHandler<Input> = async (data, e) => {
+
     const i = alignment;
     let kshirot;
+    
     if (i === "kshir") {
       kshirot = 1;
     } else if (i === "notkshir") {
       kshirot = 0;
     } else {
       //kshir was unseletcted and its a required data, pop error
+      error = "נא לציין אם כשיר או לא";
+      setOpen(true);
+      setOpenSuccess(false);
       return;
     }
     const dataToSend = { ...data, kshirot: kshirot };
     console.log(dataToSend);
-    console.log(await addTank(dataToSend));
+    const worked = await addTank(dataToSend);
     //register.reset();
-
+    if (worked.message === "failed") {
+      error = "צ הרכב כבר קיים במערכת, נסה שנית עם צ שונה";
+      setOpen(true);
+      setOpenSuccess(false);
+      return;
+    }
+    setOpen(false);
+    setOpenSuccess(true);
+    e?.target.reset();
     //clear every input field for another enterin of fields and pop a success dialog, added
   };
-  
+
   //as of now checking if its a number, between 6-9 chars
   const [alignment, setAlignment] = useState("kshir");
 
@@ -148,6 +169,30 @@ export const AddTank: React.FC = () => {
                 <ToggleButton value="kshir">כשיר</ToggleButton>
               </ToggleButtonGroup>
             </Stack>
+
+            <Collapse in={open}>
+              <Alert
+                dir="ltr"
+                severity="error"
+                sx={{ marginTop: "1rem", marginBottom: "3rem" }}
+                action={
+                  <IconButton
+                    aria-label="close"
+                    color="inherit"
+                    size="small"
+                    onClick={() => {
+                      setOpen(false);
+                    }}
+                  >
+                    <CloseIcon fontSize="inherit" />
+                  </IconButton>
+                }
+              >
+                {" "}
+                {error}{" "}
+              </Alert>
+            </Collapse>
+
             <Button
               size="large"
               color="secondary"
@@ -157,6 +202,29 @@ export const AddTank: React.FC = () => {
             >
               הוספה
             </Button>
+
+            <Collapse in={openSuccess}>
+              <Alert
+                dir="ltr"
+                severity="success"
+                sx={{ marginTop: "3rem", marginBottom: "1rem" }}
+                action={
+                  <IconButton
+                    aria-label="close"
+                    color="inherit"
+                    size="small"
+                    onClick={() => {
+                      setOpenSuccess(false);
+                    }}
+                  >
+                    <CloseIcon fontSize="inherit" />
+                  </IconButton>
+                }
+              >
+                {" "}
+                הרכב הוסף בהצלחה{" "}
+              </Alert>
+            </Collapse>
           </form>
         </Paper>
       </Box>

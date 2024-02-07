@@ -8,26 +8,24 @@ import { TanksTable } from "./components/graphs/TanksTable.tsx";
 import { ExtraInfo } from "./components/graphs/ExtraInfo.tsx";
 import { useNavigate } from "react-router-dom";
 
-
-
 export const MainPage: React.FC = () => {
-  const { setMainPage, userData} = useContext(TankContext);
+  const { setMainPage, userData } = useContext(TankContext);
 
   //navigate to login page is user isnt loggedin
   const navigate = useNavigate();
-  useEffect(() => { 
-    if(!userData.isLogged){
-      return navigate("/")
+  useEffect(() => {
+    if (!userData.isLogged) {
+      return navigate("/");
     }
-  },[userData])
+  }, [userData]);
 
   const [filter, setFilter] = useState("");
 
   //for context to reload, setting the mainpage to false and true
-  useEffect(()=>{
-    setMainPage(false) 
-    setMainPage(true)
-  },[userData]);
+  useEffect(() => {
+    // setMainPage(false)
+    setMainPage(true);
+  }, [userData]);
 
   const handleChange = (e: string) => {
     setFilter(e);
