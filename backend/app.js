@@ -11,7 +11,7 @@ const cookieParser = require("cookie-parser");
 const cors = require("cors");
 
 const app = express();
-app.set('trust proxy', 1);
+app.set("trust proxy", 1);
 
 app.use(
   bodyParser.urlencoded({
@@ -19,7 +19,7 @@ app.use(
   })
 );
 app.use(express.json());
-app.use(cookieParser());
+// app.use(cookieParser());
 
 // CORS
 
@@ -31,10 +31,10 @@ app.use((req, res, next) => {
 
 //middlware
 app.use(
-	cors({
-		origin: "http://localhost:5173",
-		credentials: true,
-	})
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+  })
 );
 
 // passport.authenticate
@@ -46,12 +46,11 @@ app.use(
     saveUninitialized: false,
     cookie: {
       secure: false, // Set to true if using HTTPS
-			// httpOnly: true,
+      // httpOnly: true,
       maxAge: 1000 * 60 * 60 * 24,
     },
   })
 );
-
 
 mongoose.connect("mongodb://127.0.0.1:27017/db", {
   useNewUrlParser: true,
@@ -63,7 +62,6 @@ passport.use(
   new LocalStrategy(
     { usernameField: "username", passwordField: "password" },
     async (username, password, done) => {
-      console.log("u got here");
       let user = await doesUserExist(username);
       if (user === null) {
         return done(null, false);
@@ -74,27 +72,19 @@ passport.use(
 );
 
 passport.serializeUser((user, cb) => {
-  console.log(user + "2");
-  cb(null, { pernr: user.pernr});
+  cb(null, { pernr: user.pernr });
 });
 
 passport.deserializeUser(async (user, done) => {
-  console.log(user + "1");
   return done(null, await doesUserExist(user.pernr));
 });
 
 app.use(passport.initialize());
 app.use(passport.session());
 
-const isManager = (req) => {
-  return req.user && req.user.isManager == 1;
-};
-
 const doesUserExist = async (pernr) => {
-  console.log("does user exist?");
   try {
     const user = await User.findOne({ pernr: pernr });
-    console.log(user);
     return user;
   } catch (e) {
     console.error(e);
@@ -105,67 +95,40 @@ const doesUserExist = async (pernr) => {
 //POST REQUESTS
 app.post(
   "/login",
-  passport.authenticate("local", { failureRedirect: "/login" }),
+  passport.authenticate("local"),
   (req, res) => {
-    console.log(req.user + "sadsa");
-    res.send(JSON.stringify({ message: "success" }));
+    res.send(JSON.stringify({ message: "success" , gdud: req.user.gdud, isManager: req.user.isManager, pernr: req.user.pernr}));
   }
 );
 
 app.get("/isLoggedIn", (req, res) => {
-  console.log(req.user + "sadsa");
-  console.log(JSON.stringify(req.session) + ":session");
-
   if (req.isAuthenticated()) {
-    res.send(JSON.stringify({ message: "authenticated" }));
+    res.send(JSON.stringify({ message: "authenticated" , gdud: req.user.gdud, isManager: req.user.isManager, pernr: req.user.pernr}));
   } else {
     res.send(JSON.stringify({ message: "not authenticated" }));
   }
 });
 
-app.get("/logout", (req, res) => {
-  res.send("lol!");
-});
-
-// app.post("/addtank", (req, res) => {
-//   if(isManager){
-//     //can make a request
-//     return;
-//   }
-//   res.status(401).send(JSON.stringify({"status": "unautherized"}))
-// });
 
 //GET REQUESTS
-app.get("/login", (req, res) => {
-  res.send(
-    "<form action='' method='post'><input name='username' /><input name='password' /><button type='submit'>login</button></form>login"
-  );
-});
+
 
 app.get("/", () => {
   res.redirect("/main");
 });
 
-app.get("/main", (req, res) => {
-  //if logged in =>
-  if (!req.user) {
-    res.redirect("/login");
-  } else {
-    //if(admin) => main admin alll tank data, else main not admin, only specific gdud data
-    res.send("mama pizza" /*render */);
-  }
-});
+
 
 //Sends JSON
 app.get("/tanks", async (req, res) => {
-  //if(isManager(req)){
-  res.send(await getAllTanks());
-  //}else if(req.user){
-  // res.send(await getTanksByGdud("180"))
-  //}else{
-  //not connected
-  //  res.status(500)
-  // }
+  if (isManager(req)) {
+    res.send(await getAllTanks());
+  } else if (req.user) {
+    res.send(await getTanksByGdud(req.user.gdud));
+  } else {
+    // not connected
+    res.status(500);
+  }
 });
 
 const getAllTanks = async () => {
@@ -177,7 +140,6 @@ const getTanksByGdud = async (gdud) => {
 };
 
 const addTank = async (obj) => {
-  console.log(JSON.stringify(obj) + "plapal");
   try {
     return { message: "success", data: await CarData.create(obj) };
   } catch {
@@ -185,13 +147,32 @@ const addTank = async (obj) => {
   }
 };
 
+const isManager = (req) => {
+  return req.user && req.user.isManager == 1;
+};
+
 app.post("/addTank", async (req, res) => {
-  console.log(req.body);
-  // if (isManager(req)) {
-  res.send(await addTank(req.body));
-  // } else {
-  // res.send("dashboard");
-  // }
+  if (isManager(req)) {
+    res.send(await addTank(req.body));
+  } else {
+    res.send({ message: "fail, not manager/connected" });
+  }
+});
+
+app.delete('/logout', function(req, res, next){
+  let message;
+  req.logout(function(err) {
+    if (err) { return next(err); }
+    message = "Logged Out";
+  });
+  req.session.destroy(function (err) {
+    if (!err) {
+        res.status(200).clearCookie('connect.sid', {path: '/'}).json({status: "Success"});
+        return
+    }else{
+      res.send({message})
+    } 
+  });
 });
 
 app.listen(3000, function () {

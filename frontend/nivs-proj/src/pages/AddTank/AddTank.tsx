@@ -9,8 +9,9 @@ import {
   Typography,
 } from "@mui/material";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { useState } from "react";
-import { addTank } from "../../http";
+import { useContext, useEffect, useState } from "react";
+import { TankContext, addTank } from "../../store/tank-info-context";
+import { useNavigate } from "react-router-dom";
 
 type Input = {
   carNumber: number;
@@ -20,9 +21,21 @@ type Input = {
 
 export const AddTank: React.FC = () => {
   const { register, handleSubmit, formState } = useForm<Input>();
+  const { userData } = useContext(TankContext);
+  const navigate = useNavigate();
+
+  //navigate to mainpage is user isnt manager, navigate to login page if isnt loggedin
+  useEffect(() => {
+    if (!userData.isManager) {
+      return navigate("/main");
+    }
+    if (!userData.isLogged) {
+      return navigate("/");
+    }
+  }, [userData]);
+
   const { errors } = formState;
   const onSubmit: SubmitHandler<Input> = async (data) => {
-    console.log(JSON.stringify(data) + alignment);
     const i = alignment;
     let kshirot;
     if (i === "kshir") {
@@ -35,13 +48,12 @@ export const AddTank: React.FC = () => {
     }
     const dataToSend = { ...data, kshirot: kshirot };
     console.log(dataToSend);
-    console.log(await addTank(dataToSend)) 
-      //register.reset();
-    
+    console.log(await addTank(dataToSend));
+    //register.reset();
 
-    //fetch post addtank with dataToSend
-    //clear every input field for another enterin of fields
+    //clear every input field for another enterin of fields and pop a success dialog, added
   };
+  
   //as of now checking if its a number, between 6-9 chars
   const [alignment, setAlignment] = useState("kshir");
 
@@ -51,6 +63,7 @@ export const AddTank: React.FC = () => {
   ) => {
     setAlignment(newAlignment);
   };
+
   return (
     <>
       <Box className="addtank">

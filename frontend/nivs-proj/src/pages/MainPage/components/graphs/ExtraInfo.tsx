@@ -4,10 +4,13 @@ import { TankContext } from "../../../../store/tank-info-context";
 import { theme } from "../../../../themes/themePalatte";
 
 export const ExtraInfo: React.FC<{ which: boolean }> = ({ which }) => {
-  const { doughnutChartInfo, countKshir } = useContext(TankContext);
+
+  const { tankData } = useContext(TankContext);
+
   const returninfo: string = which
-    ? `%${doughnutChartInfo} כלים כשירים `
-    : `${countKshir} כלים כשירים `;
+    ? `%${tankData.doughnutChartInfo} כלים כשירים `
+    : `${tankData.countKshir} כלים כשירים `;
+    
   return (
     <Paper
       elevation={2}

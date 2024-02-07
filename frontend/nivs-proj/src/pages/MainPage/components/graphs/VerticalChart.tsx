@@ -1,4 +1,4 @@
-import React from "react";
+import { useContext } from "react";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -9,8 +9,8 @@ import {
   Legend,
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
-import { verticalData } from "../../types/chartData";
 import { Paper } from "@mui/material";
+import { TankContext } from "../../../../store/tank-info-context";
 
 ChartJS.register(
   CategoryScale,
@@ -31,11 +31,12 @@ export const options = {
   maintainAspectRatio: false,
 };
 
-type myProps = {
-  data: verticalData;
-};
 
-export const VerticalChart: React.FC<myProps> = (prop) => {
+
+export const VerticalChart: React.FC = () => {
+  
+  const { tankData } = useContext(TankContext);
+
   return (
     <Paper
       style={{
@@ -48,7 +49,7 @@ export const VerticalChart: React.FC<myProps> = (prop) => {
         marginBottom: "2rem",
       }}
     >
-      <Bar options={options} data={prop.data} />
+      <Bar options={options} data={tankData.verticalTanksInfo} />
     </Paper>
   );
 };
