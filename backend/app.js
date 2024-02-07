@@ -95,29 +95,38 @@ const doesUserExist = async (pernr) => {
 //POST REQUESTS
 app.post(
   "/login",
-  passport.authenticate("local"),
+  passport.authenticate("local", { failureRedirect: "/failedLogin" }),
   (req, res) => {
-    res.send(JSON.stringify({ message: "success" , gdud: req.user.gdud, isManager: req.user.isManager, pernr: req.user.pernr}));
+    res.send(
+      JSON.stringify({
+        message: "success",
+        gdud: req.user.gdud,
+        isManager: req.user.isManager,
+        pernr: req.user.pernr,
+      })
+    );
   }
 );
+app.get("/failedLogin", (req, res) => {
+  res.send(JSON.stringify({ message: "fail" }));
+});
 
 app.get("/isLoggedIn", (req, res) => {
   if (req.isAuthenticated()) {
-    res.send(JSON.stringify({ message: "authenticated" , gdud: req.user.gdud, isManager: req.user.isManager, pernr: req.user.pernr}));
+    res.send(
+      JSON.stringify({
+        message: "authenticated",
+        gdud: req.user.gdud,
+        isManager: req.user.isManager,
+        pernr: req.user.pernr,
+      })
+    );
   } else {
     res.send(JSON.stringify({ message: "not authenticated" }));
   }
 });
 
-
 //GET REQUESTS
-
-
-app.get("/", () => {
-  res.redirect("/main");
-});
-
-
 
 //Sends JSON
 app.get("/tanks", async (req, res) => {
@@ -159,19 +168,24 @@ app.post("/addTank", async (req, res) => {
   }
 });
 
-app.delete('/logout', function(req, res, next){
+app.delete("/logout", function (req, res, next) {
   let message;
-  req.logout(function(err) {
-    if (err) { return next(err); }
+  req.logout(function (err) {
+    if (err) {
+      return next(err);
+    }
     message = "Logged Out";
   });
   req.session.destroy(function (err) {
     if (!err) {
-        res.status(200).clearCookie('connect.sid', {path: '/'}).json({status: "Success"});
-        return
-    }else{
-      res.send({message})
-    } 
+      res
+        .status(200)
+        .clearCookie("connect.sid", { path: "/" })
+        .json({ status: "Success" });
+      return;
+    } else {
+      res.send({ message });
+    }
   });
 });
 
