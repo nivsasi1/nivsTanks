@@ -1,21 +1,26 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
 import { Box, Typography } from "@mui/material";
+import { TankContext } from "../../../../store/tank-info-context";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-export const DoughnutChart: React.FC<{ precent: number }> = ({ precent }) => {
+export const DoughnutChart: React.FC = () => {
+  
+  const { tankData } = useContext(TankContext);
+
   const data = {
     labels: ["סהכ כשירים"],
     datasets: [
       {
         label: "%",
-        data: [precent, 100 - precent],
+        data: [tankData.doughnutChartInfo, 100 - tankData.doughnutChartInfo],
         backgroundColor: ["#899BF8", "#FFF"],
       },
     ],
   };
+
   return (
     <>
       <Box
@@ -33,7 +38,7 @@ export const DoughnutChart: React.FC<{ precent: number }> = ({ precent }) => {
         <Doughnut data={data} />
       </Box>
       <Typography style={{ direction: "rtl" }} mb={2}>
-        {precent + "%" + " מהכלים כשירים "}
+        {tankData.doughnutChartInfo + "%" + " מהכלים כשירים "}
       </Typography>
     </>
   );

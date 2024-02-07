@@ -4,15 +4,12 @@ import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
 import { useContext } from "react";
 import { TankContext } from "../../../../store/tank-info-context";
 import { tank } from "../../types/chartData";
 import { styled } from "@mui/material";
 
-function createData(carNumber: string, kshirot: number) {
-  return { carNumber, kshirot };
-}
+
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: theme.palette.secondary.main,
@@ -34,7 +31,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 export const TanksTable: React.FC<{ filter: string }> = ({ filter }) => {
-  const { Tanks } = useContext(TankContext);
+  const { tankData } = useContext(TankContext);
 
   return (
     //<Paper className="scrollbar" sx={{width:'100%', overflow:'hidden' }}>
@@ -47,7 +44,7 @@ export const TanksTable: React.FC<{ filter: string }> = ({ filter }) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {Tanks.filter(
+          {tankData.Tanks.filter(
             (tank) =>
               (filter && tank.carNumber && tank.carNumber.includes(filter)) ||
               filter == ""

@@ -19,19 +19,15 @@ const router = createBrowserRouter([
        {
         path: "/main",
         element: (
-          <Page admin={true}>
-            <MainPage
-              pernr="9063466"
-              gdud={53}
-              admin={true}
-            />
+          <Page>
+            <MainPage/>
           </Page>
         ),
       },
       {
         path: "/addtank",
         element: (
-          <Page admin={true}>
+          <Page>
             <AddTank />
           </Page>
         ),

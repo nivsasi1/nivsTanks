@@ -2,34 +2,45 @@ import { Button, Paper, TextField, Typography } from "@mui/material";
 import { useForm, SubmitHandler } from "react-hook-form";
 import tankBG from "../../assets/tank.png";
 import logo from "../../assets/zevet100.jpg";
-//type handler = () => void;
-import { loginTry } from "../../http.ts"
+import { TankContext, loginTry } from "../../store/tank-info-context";
+import { useContext, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 type Input = {
   pernr: number;
 };
 
 export const LoginForm: React.FC = () => {
+  const { handleLogin, userData } = useContext(TankContext);
 
+  //navigating a signedin user to main page automatically
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (userData.isLogged) {
+      return navigate("/main");
+    }
+  }, [userData]);
 
-    const { register, handleSubmit, formState } = useForm<Input>();
-    const { errors } = formState;  const onSubmit: SubmitHandler<Input> = async (data) =>
-    {
-        //fetch if user/admin, if yes nav, else error not existing
-        console.log(JSON.stringify(data));
+  const { register, handleSubmit, formState } = useForm<Input>();
+  const { errors } = formState;
+  const onSubmit: SubmitHandler<Input> = async (data) => {
 
-       // await updateLogin(JSON.stringify(data))
-        const data1 = { "username" : data.pernr, "password" : "8604191"}
-        await loginTry(data1)
+    const data1 = { username: data.pernr, password: "111111" };
+    const returnData = await loginTry(data1);
+    if (returnData.message == "success") {
+      handleLogin(
+        true,
+        returnData.gdud,
+        returnData.isManager,
+        returnData.pernr
+      );
+      navigate("/main");
+    } else {
+      //not a valid user, throw error
+    }
+  };
 
-        
-        //console.log( resData.message);
-        //is auth? navigate mainpage. else print not existing user, --- mainpage, --- ismanager, load info of manager, else load byGdud
-
-        //how to get to the session
-      }
-  //as of now checking if its a number, between 6-9 chars
-
+  //as of now only check for pernr are if its a number, between 6-9 chars
   return (
     <>
       <img className="tankBG" src={tankBG} alt="background" />
@@ -48,7 +59,10 @@ export const LoginForm: React.FC = () => {
               {...register("pernr", {
                 required: { value: true, message: "נא הכנס מספר אישי" },
                 minLength: { value: 6, message: "מספר אישי הוא לפחות 6 ספרות" },
-                maxLength: { value: 9, message: "מספר אישי הוא לא יותר מ9 ספרות" },
+                maxLength: {
+                  value: 9,
+                  message: "מספר אישי הוא לא יותר מ9 ספרות",
+                },
                 pattern: /^[0-9]{6,9}$/,
               })}
               id="pernr"
