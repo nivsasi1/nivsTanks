@@ -107,6 +107,7 @@ app.post(
     );
   }
 );
+
 app.get("/failedLogin", (req, res) => {
   res.send(JSON.stringify({ message: "fail" }));
 });
