@@ -1,5 +1,5 @@
 ## nivsTanks
-### פרויקט Web Application מידע על טנקים בשפה של TypeScript וJavaScript
+פרויקט Web Application מידע על טנקים בשפה של TypeScript וJavaScript
 
 ## Libraries:
 
