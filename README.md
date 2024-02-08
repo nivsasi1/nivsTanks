@@ -9,6 +9,21 @@ backend: Node.js, Express and express-session, passport and passport-local, mong
 
 database: mongoDb
 
+after pulling the project, for backend 
+```
+cd backend/
+npm install
+nodemon app.js
+```
+
+for frontend
+
+```
+cd frontend/nivs-proj/
+npm install
+npm run dev
+```
+
 עמוד התחברות --->
 ![image](https://github.com/nivsasi1/nivsTanks/assets/136849172/0b3f907f-5417-4b1e-a086-02ba13fd3d25)
 
