@@ -16,9 +16,10 @@
 
 
 
-##סוגי שגיאות בעמוד התחברות --->
+סוגי שגיאות בעמוד התחברות --->###
 משתמש לא קיים->
 ![image](https://github.com/nivsasi1/nivsTanks/assets/136849172/1eea95c8-be28-4163-87dd-b03b1338f513)
 
 נא להכניס מספר אישי->
+
 ![Screenshot 2024-02-08 032857](https://github.com/nivsasi1/nivsTanks/assets/136849172/c0bb5055-47a0-4f6f-907b-97c88098cf67)
