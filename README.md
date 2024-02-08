@@ -55,7 +55,7 @@ the backend is running on port 3000, and the frontend on port 5173, to open the 
 
 
 
-### סוגי שגיאות בעמוד התחברות
+## סוגי שגיאות בעמוד התחברות
 
 משתמש לא קיים->
 
@@ -69,7 +69,7 @@ the backend is running on port 3000, and the frontend on port 5173, to open the 
 
 ![image (2)](https://github.com/nivsasi1/nivsTanks/assets/136849172/5bbef98c-2590-458a-8024-27400a0a480f)
 
-### אפשרויות העמוד ראשי
+## אפשרויות העמוד ראשי
 
 אפשרות סינון רשימת הרכבים לפי מספר->
 
@@ -80,7 +80,7 @@ the backend is running on port 3000, and the frontend on port 5173, to open the 
 
 ![image](https://github.com/nivsasi1/nivsTanks/assets/136849172/1231b991-ded6-487b-8de6-e704674b5e40)
 
-### סוגי התראות בהוספת טנק
+## סוגי התראות בהוספת טנק
 
 ניסיון להגיש כאשר אחד השדות ריקים->
 
