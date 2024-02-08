@@ -1,6 +1,10 @@
 ### nivsTanks
-פרויקט אתר מידע על טנקים בשימוש של React, TypeScript
-ספריות עיקריות, Passport, Node.js, Express, MUI
+פרויקט Web Application מידע על טנקים בשפה של TypeScript וJavaScript
+
+ספריות עיקריות
+frontend: React, MUI
+backend: Node.js, Express and express-session, passport and passport-local, mongoose
+database: mongoDb
 
 עמוד התחברות --->
 ![image](https://github.com/nivsasi1/nivsTanks/assets/136849172/0b3f907f-5417-4b1e-a086-02ba13fd3d25)
@@ -22,7 +26,7 @@
 
 
 
-###סוגי שגיאות בעמוד התחברות###
+סוגי שגיאות בעמוד התחברות
 
 משתמש לא קיים->
 
@@ -36,7 +40,7 @@
 
 ![image (2)](https://github.com/nivsasi1/nivsTanks/assets/136849172/5bbef98c-2590-458a-8024-27400a0a480f)
 
-###עמוד ראשי
+עמוד ראשי
 
 אפשרות סינון רשימת הרכבים לפי מספר->
 
@@ -47,7 +51,7 @@
 
 ![image](https://github.com/nivsasi1/nivsTanks/assets/136849172/1231b991-ded6-487b-8de6-e704674b5e40)
 
-סוגי התראות בהוספת טנק###
+סוגי התראות בהוספת טנק
 
 ניסיון להגיש כאשר אחד השדות ריקים->
 
