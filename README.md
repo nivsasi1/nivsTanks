@@ -9,7 +9,6 @@
 ![image](https://github.com/nivsasi1/nivsTanks/assets/136849172/8349c2da-d253-417d-b92a-d70bb2a7ed3a)
 
 עמוד ראשי אשר מציד מידע לפי גדוד וללא אפשרות הוספת רכב (המשתמש המחובר אינו מנהל) --->
-
 ![image](https://github.com/nivsasi1/nivsTanks/assets/136849172/954db4f2-d2e8-449b-98e4-10b1c67d6cb2)
 
 
@@ -23,9 +22,10 @@
 
 
 
-סוגי שגיאות בעמוד התחברות --->
+###סוגי שגיאות בעמוד התחברות###
 
 משתמש לא קיים->
+
 ![image](https://github.com/nivsasi1/nivsTanks/assets/136849172/1eea95c8-be28-4163-87dd-b03b1338f513)
 
 נא להכניס מספר אישי->
@@ -36,7 +36,7 @@
 
 ![image (2)](https://github.com/nivsasi1/nivsTanks/assets/136849172/5bbef98c-2590-458a-8024-27400a0a480f)
 
-עמוד ראשי --->
+###עמוד ראשי
 
 אפשרות סינון רשימת הרכבים לפי מספר->
 
@@ -47,7 +47,7 @@
 
 ![image](https://github.com/nivsasi1/nivsTanks/assets/136849172/1231b991-ded6-487b-8de6-e704674b5e40)
 
-סוגי התראות בהוספת טנק --->
+סוגי התראות בהוספת טנק###
 
 ניסיון להגיש כאשר אחד השדות ריקים->
 
