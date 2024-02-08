@@ -1,7 +1,7 @@
 ## nivsTanks
-פרויקט Web Application מידע על טנקים בשפה של TypeScript וJavaScript
+### פרויקט Web Application מידע על טנקים בשפה של TypeScript וJavaScript
 
-ספריות עיקריות:
+### ספריות עיקריות:
 
 frontend: React, MUI
 
@@ -23,7 +23,7 @@ cd frontend/nivs-proj/
 npm install
 npm run dev
 ```
-## pages
+### pages
 
 the backend is running on port 3000, and the frontend on port 5173, to open the site, http://localhost:5173/
 
@@ -34,27 +34,27 @@ the backend is running on port 3000, and the frontend on port 5173, to open the 
 /addtank - (adding tank page)
 
 
-## עמוד התחברות --->
+### עמוד התחברות --->
 ![image](https://github.com/nivsasi1/nivsTanks/assets/136849172/0b3f907f-5417-4b1e-a086-02ba13fd3d25)
 
-עמוד ראשי אשר מציג מידע --->
+### עמוד ראשי אשר מציג מידע --->
 ![image](https://github.com/nivsasi1/nivsTanks/assets/136849172/8349c2da-d253-417d-b92a-d70bb2a7ed3a)
 
-עמוד ראשי אשר מציד מידע לפי גדוד וללא אפשרות הוספת רכב (המשתמש המחובר אינו מנהל) --->
+### עמוד ראשי אשר מציד מידע לפי גדוד וללא אפשרות הוספת רכב (המשתמש המחובר אינו מנהל) --->
 ![image](https://github.com/nivsasi1/nivsTanks/assets/136849172/954db4f2-d2e8-449b-98e4-10b1c67d6cb2)
 
 
 
-עמוד להוספת טנקים חדשים --->
+### עמוד להוספת טנקים חדשים --->
 ![image](https://github.com/nivsasi1/nivsTanks/assets/136849172/fd51eeb4-634f-4da0-8f31-b5e08202471f)
 
-עמוד כאשר מוזן URL לא מוכר, עמוד שגיאה --->
+### עמוד כאשר מוזן URL לא מוכר, עמוד שגיאה --->
 ![image](https://github.com/nivsasi1/nivsTanks/assets/136849172/c3072b10-8fe4-4430-80b4-69f9a2905c11)
 
 
 
 
-סוגי שגיאות בעמוד התחברות
+### סוגי שגיאות בעמוד התחברות
 
 משתמש לא קיים->
 
@@ -68,7 +68,7 @@ the backend is running on port 3000, and the frontend on port 5173, to open the 
 
 ![image (2)](https://github.com/nivsasi1/nivsTanks/assets/136849172/5bbef98c-2590-458a-8024-27400a0a480f)
 
-עמוד ראשי
+### אפשרויות העמוד ראשי
 
 אפשרות סינון רשימת הרכבים לפי מספר->
 
@@ -79,7 +79,7 @@ the backend is running on port 3000, and the frontend on port 5173, to open the 
 
 ![image](https://github.com/nivsasi1/nivsTanks/assets/136849172/1231b991-ded6-487b-8de6-e704674b5e40)
 
-סוגי התראות בהוספת טנק
+### סוגי התראות בהוספת טנק
 
 ניסיון להגיש כאשר אחד השדות ריקים->
 
