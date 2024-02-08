@@ -1,9 +1,11 @@
 ### nivsTanks
 פרויקט Web Application מידע על טנקים בשפה של TypeScript וJavaScript
 
-ספריות עיקריות
+ספריות עיקריות:
 frontend: React, MUI
+
 backend: Node.js, Express and express-session, passport and passport-local, mongoose
+
 database: mongoDb
 
 עמוד התחברות --->
