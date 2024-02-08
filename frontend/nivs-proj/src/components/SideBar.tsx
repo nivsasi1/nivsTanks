@@ -4,10 +4,11 @@ import logo from "../assets/zevet100.jpg";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { TankContext } from "../store/tank-info-context";
+import { Buttons } from "../assets/constants";
 
 export const SideBar: React.FC = () => {
   const { userData, handleLogOut, handleLogin } = useContext(TankContext);
-  
+
   const navigate = useNavigate();
 
   const handleLogout = async () => {
@@ -17,7 +18,7 @@ export const SideBar: React.FC = () => {
   };
 
   return (
-    <div style={{ position: "relative", height: "100%", overflow: "hidden" }}>
+    <Box style={{ position: "relative", height: "100%", overflow: "hidden" }}>
       <img className="tankBGSideBar" src={tankBG} alt="background" />
       <img className="zevet100" src={logo} alt="zevetLogo" />
       <Box style={{ display: "flex", flexDirection: "column", margin: "1rem" }}>
@@ -30,7 +31,7 @@ export const SideBar: React.FC = () => {
               fullWidth
               sx={{ mt: "10rem" }}
             >
-              עמוד ראשי
+              {Buttons.MAINPAGE}{" "}
             </Button>
           )}
         </NavLink>
@@ -44,7 +45,7 @@ export const SideBar: React.FC = () => {
                 variant="contained"
                 sx={{ mt: "1rem" }}
               >
-                הוספת צ
+                {Buttons.ADD_CAR}
               </Button>
             )}
           </NavLink>
@@ -67,9 +68,9 @@ export const SideBar: React.FC = () => {
           variant="contained"
           fullWidth
         >
-          התנתקות
+          {Buttons.LOGOUT}
         </Button>
       </NavLink>
-    </div>
+    </Box>
   );
 };

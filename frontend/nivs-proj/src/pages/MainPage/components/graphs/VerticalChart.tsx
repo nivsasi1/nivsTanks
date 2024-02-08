@@ -31,8 +31,6 @@ export const options = {
   maintainAspectRatio: false,
 };
 
-
-
 export const VerticalChart: React.FC = () => {
   
   const { tankData } = useContext(TankContext);

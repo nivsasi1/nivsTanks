@@ -8,7 +8,7 @@ import { useContext } from "react";
 import { TankContext } from "../../../../store/tank-info-context";
 import { tank } from "../../types/chartData";
 import { styled } from "@mui/material";
-
+import { Labels } from "../../../../assets/constants";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -39,8 +39,8 @@ export const TanksTable: React.FC<{ filter: string }> = ({ filter }) => {
       <Table stickyHeader aria-label="simple table">
         <TableHead>
           <TableRow>
-            <StyledTableCell align="left">כשירות</StyledTableCell>
-            <StyledTableCell align="right">שם הרכב</StyledTableCell>
+            <StyledTableCell align="left">{Labels.KSHIROT}</StyledTableCell>
+            <StyledTableCell align="right">{Labels.CAR_NAME}</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>

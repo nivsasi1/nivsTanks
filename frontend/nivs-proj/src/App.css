@@ -24,6 +24,15 @@ body {
   
 }
 
+.flex{
+  display: flex;
+}
+
+.flexcenter{
+  justify-content: "center";
+  /* align-items: "center"; */
+}
+
 img.tankBG {
   z-index: -1;
   position: fixed;

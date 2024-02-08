@@ -16,6 +16,7 @@ import { useContext, useEffect, useState } from "react";
 import { TankContext, addTank } from "../../store/tank-info-context";
 import { useNavigate } from "react-router-dom";
 import CloseIcon from "@mui/icons-material/Close";
+import { Errors, Titles, Alerts, Buttons } from "../../assets/constants";
 
 type Input = {
   carNumber: number;
@@ -28,8 +29,7 @@ export const AddTank: React.FC = () => {
   const { register, handleSubmit, formState } = useForm<Input>();
   const { userData, setMainPage } = useContext(TankContext);
   const navigate = useNavigate();
-  const [open, setOpen] = useState(false);
-  const [openSuccess, setOpenSuccess] = useState(false);
+  const [open, setOpen] = useState({ error: false, success: false });
 
   //navigate to mainpage is user isnt manager, navigate to login page if isnt loggedin
   useEffect(() => {
@@ -44,19 +44,16 @@ export const AddTank: React.FC = () => {
 
   const { errors } = formState;
   const onSubmit: SubmitHandler<Input> = async (data, e) => {
-
-    const i = alignment;
     let kshirot;
-    
-    if (i === "kshir") {
+
+    if (alignment === "kshir") {
       kshirot = 1;
-    } else if (i === "notkshir") {
+    } else if (alignment === "notkshir") {
       kshirot = 0;
     } else {
       //kshir was unseletcted and its a required data, pop error
-      error = "נא לציין אם כשיר או לא";
-      setOpen(true);
-      setOpenSuccess(false);
+      error = Alerts.KSHIR_ERROR;
+      setOpen({ error: true, success: false });
       return;
     }
     const dataToSend = { ...data, kshirot: kshirot };
@@ -64,13 +61,12 @@ export const AddTank: React.FC = () => {
     const worked = await addTank(dataToSend);
     //register.reset();
     if (worked.message === "failed") {
-      error = "צ הרכב כבר קיים במערכת, נסה שנית עם צ שונה";
-      setOpen(true);
-      setOpenSuccess(false);
+      error = Alerts.ALREADY_EXIST;
+      setOpen({ error: true, success: false });
       return;
     }
-    setOpen(false);
-    setOpenSuccess(true);
+    setOpen({ error: false, success: true });
+
     e?.target.reset();
     //clear every input field for another enterin of fields and pop a success dialog, added
   };
@@ -89,7 +85,7 @@ export const AddTank: React.FC = () => {
     <>
       <Box className="addtank">
         <Typography variant="h2" mb="2rem">
-          הוספת כלי
+          {Titles.ADD_KLI}
         </Typography>
         <Paper
           sx={{ width: 1 / 2, mr: "auto", ml: "auto" }}
@@ -102,45 +98,44 @@ export const AddTank: React.FC = () => {
         >
           <form onSubmit={handleSubmit(onSubmit)}>
             <Typography variant="h6" style={{ textAlign: "right" }}>
-              פרטים
+              {Titles.INFO}
             </Typography>
             <TextField
               {...register("carNumber", {
-                required: { value: true, message: "נא הכנס מספר רכב" },
+                required: { value: true, message: Errors.EMPTY_CARNUM },
               })}
               id="carNumber"
               name="carNumber"
-              label="מספר רכב (צ׳)"
+              label={Titles.CAR_NUMBER}
               fullWidth
               type="number"
               color="secondary"
               focused
-              error={errors.carNumber?.message === "נא הכנס מספר רכב"}
+              error={errors.carNumber?.message === Errors.EMPTY_CARNUM}
               helperText={errors.carNumber?.message}
             />
-
             <Stack direction="row" spacing={2} my={2}>
               <TextField
                 {...register("makat", {
-                  required: { value: true, message: "נא הכנס מקט" },
+                  required: { value: true, message: Errors.EMPTY_MAKAT },
                 })}
                 id="makat"
                 name="makat"
-                label="מקט"
+                label={Titles.MAKAT}
                 type="number"
                 color="secondary"
                 sx={{ width: 1 / 2 }}
                 focused
-                error={errors.makat?.message === "נא הכנס מקט"}
+                error={errors.makat?.message === Errors.EMPTY_MAKAT}
                 helperText={errors.makat?.message}
               />
               <TextField
                 {...register("gdud", {
-                  required: { value: true, message: "נא הכנס מספר גדוד" },
+                  required: { value: true, message: Errors.EMPTY_GDUD },
                 })}
                 id="gdud"
                 name="gdud"
-                label="מספר גדוד"
+                label={Titles.GDUD_NUM}
                 sx={{ width: 1 / 2 }}
                 type="number"
                 color="secondary"
@@ -153,7 +148,7 @@ export const AddTank: React.FC = () => {
               />
             </Stack>
             <Typography variant="h6" style={{ textAlign: "right" }}>
-              כשירות רכב
+              {Titles.CAR_KSHIROT}
             </Typography>
 
             <Stack direction="column" spacing={2}>
@@ -165,12 +160,12 @@ export const AddTank: React.FC = () => {
                 sx={{ ml: "auto", mr: "0" }}
                 style={{ alignSelf: "end" }}
               >
-                <ToggleButton value="notkshir">לא כשיר</ToggleButton>
-                <ToggleButton value="kshir">כשיר</ToggleButton>
+                <ToggleButton value="notkshir">{Titles.NOT_KSHIR}</ToggleButton>
+                <ToggleButton value="kshir">{Titles.KSHIR}</ToggleButton>
               </ToggleButtonGroup>
             </Stack>
 
-            <Collapse in={open}>
+            <Collapse in={open.error}>
               <Alert
                 dir="ltr"
                 severity="error"
@@ -181,15 +176,14 @@ export const AddTank: React.FC = () => {
                     color="inherit"
                     size="small"
                     onClick={() => {
-                      setOpen(false);
+                      setOpen({ error: false, success: false });
                     }}
                   >
                     <CloseIcon fontSize="inherit" />
                   </IconButton>
                 }
               >
-                {" "}
-                {error}{" "}
+                {error}
               </Alert>
             </Collapse>
 
@@ -200,10 +194,10 @@ export const AddTank: React.FC = () => {
               variant="contained"
               sx={{ mt: "1rem" }}
             >
-              הוספה
+              {Buttons.ADD}
             </Button>
 
-            <Collapse in={openSuccess}>
+            <Collapse in={open.success}>
               <Alert
                 dir="ltr"
                 severity="success"
@@ -214,15 +208,14 @@ export const AddTank: React.FC = () => {
                     color="inherit"
                     size="small"
                     onClick={() => {
-                      setOpenSuccess(false);
+                      setOpen({ error: false, success: false });
                     }}
                   >
                     <CloseIcon fontSize="inherit" />
                   </IconButton>
                 }
               >
-                {" "}
-                הרכב הוסף בהצלחה{" "}
+                {Alerts.ADDED_SUCCSESFULY}
               </Alert>
             </Collapse>
           </form>

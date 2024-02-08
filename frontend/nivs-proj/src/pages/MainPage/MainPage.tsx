@@ -1,4 +1,4 @@
-import { Typography } from "@mui/material";
+import { Box, Stack, Typography } from "@mui/material";
 import { Graph } from "./components/Graph";
 import { VerticalChart } from "./components/graphs/VerticalChart";
 import { DoughnutChart } from "./components/graphs/DoughnutChart";
@@ -7,6 +7,7 @@ import { TankContext } from "../../store/tank-info-context";
 import { TanksTable } from "./components/graphs/TanksTable.tsx";
 import { ExtraInfo } from "./components/graphs/ExtraInfo.tsx";
 import { useNavigate } from "react-router-dom";
+import { Graphs, Titles } from "../../assets/constants.tsx";
 
 export const MainPage: React.FC = () => {
   const { setMainPage, userData } = useContext(TankContext);
@@ -21,9 +22,7 @@ export const MainPage: React.FC = () => {
 
   const [filter, setFilter] = useState("");
 
-  //for context to reload, setting the mainpage to false and true
   useEffect(() => {
-    // setMainPage(false)
     setMainPage(true);
   }, [userData]);
 
@@ -33,12 +32,12 @@ export const MainPage: React.FC = () => {
 
   return (
     <>
-      <div>
+      <Box>
         <Typography
           variant="h5"
           sx={{ mt: "3rem", mr: "3rem", textAlign: "right", fontWeight: "600" }}
         >
-          {"מחובר בתור " + userData.pernr}
+          {Titles.LOGGED_IN_AS + userData.pernr}
         </Typography>
         <Typography
           variant="h4"
@@ -49,46 +48,44 @@ export const MainPage: React.FC = () => {
             fontWeight: "bold",
           }}
         >
-          {" "}
-          {"גדוד " + userData.gdud}{" "}
+          {userData.isManager && Titles.MANAGER}
+          {Titles.GDUD + userData.gdud}
         </Typography>
-      </div>
-      <div
-        className="graphs"
-        style={{
-          marginTop: "2rem",
-          justifyContent: "space-evenly",
-          flexDirection: "row-reverse",
-          display: "flex",
-        }}
+      </Box>
+      <Stack
+        direction={{ xs: "column", sm: "row-reverse" }}
+        mt="2rem"
+        justifyContent="space-evenly"
       >
-        <Graph setFilter={handleChange} flex={0.6} title="כשירות לפי מק״ט">
+        <Graph
+          setFilter={handleChange}
+          flex={0.6}
+          title={Graphs.KSHIR_BY_MAKAT}
+        >
           <VerticalChart />
         </Graph>
-        <Graph setFilter={handleChange} flex={0.2} title="אחוזי כשירות">
+        <Graph setFilter={handleChange} flex={0.2} title={Graphs.KSHIR_PRECENT}>
           <DoughnutChart />
         </Graph>
-      </div>
-      <div
-        className="sort-table"
-        style={{
-          marginTop: "2rem",
-          justifyContent: "space-evenly",
-          flexDirection: "row-reverse",
-          display: "flex",
-        }}
+      </Stack>
+
+      <Stack
+        direction={{ xs: "column", sm: "row-reverse" }}
+        mt="2rem"
+        justifyContent="space-evenly"
       >
         <Graph
           setFilter={handleChange}
           table={true}
           flex={0.3}
-          title="טבלת כשירות"
+          title={Graphs.KSHIR_TABLE}
         >
           <TanksTable filter={filter} />
         </Graph>
+
         <ExtraInfo which={true} />
         <ExtraInfo which={false} />
-      </div>
+      </Stack>
     </>
   );
 };

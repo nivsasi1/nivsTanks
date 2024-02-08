@@ -2,15 +2,15 @@ import { Paper, Typography } from "@mui/material";
 import { useContext } from "react";
 import { TankContext } from "../../../../store/tank-info-context";
 import { theme } from "../../../../themes/themePalatte";
+import { Labels } from "../../../../assets/constants";
 
 export const ExtraInfo: React.FC<{ which: boolean }> = ({ which }) => {
-
   const { tankData } = useContext(TankContext);
 
   const returninfo: string = which
-    ? `%${tankData.doughnutChartInfo} כלים כשירים `
-    : `${tankData.countKshir} כלים כשירים `;
-    
+    ? tankData.doughnutChartInfo + Labels.PRECENT_KSHIR
+    : tankData.countKshir + Labels.KELIM_KSHERIM;
+
   return (
     <Paper
       elevation={2}
@@ -38,7 +38,7 @@ export const ExtraInfo: React.FC<{ which: boolean }> = ({ which }) => {
           }}
           variant="h4"
         >
-          {returninfo}{" "}
+          {returninfo}
         </Typography>
       </Paper>
     </Paper>
