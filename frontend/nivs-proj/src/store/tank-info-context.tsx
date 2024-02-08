@@ -8,13 +8,14 @@ import {
   loginInfo,
 } from "./context-types";
 import React from "react";
+import { Data, Errors, Labels } from "../assets/constants";
 
 const color = theme.palette.secondary.main;
 
 const initialTanksData: [tank] = [
   {
-    carNumber: "טוען",
-    makat: "טוען",
+    carNumber: Data.LOADING,
+    makat: Data.LOADING,
     kshirot: false,
     gdud: "1",
   },
@@ -25,7 +26,7 @@ const initialVerticalTanksInfo = {
   labels: ["a"],
   datasets: [
     {
-      label: "אחוזי כשירות לפי מק״ט",
+      label: Labels.KSHIROT_PRECENT_BY_MAKAT,
       data: [100],
       backgroundColor: color,
       borderRadius: 5,
@@ -92,7 +93,7 @@ export const addTank = async (data: tankNumber) => {
     console.log("problem");
   }
   if (!response.ok) {
-    throw new Error("הוספה נכשלה, בעיה");
+    throw new Error(Errors.ADD_FAIL);
   }
   return resData ?? "error occured";
 };
@@ -186,7 +187,7 @@ export const TankContextProvider: React.FC<children1> = ({ children }) => {
           labels: keys,
           datasets: [
             {
-              label: "אחוזי כשירות לפי מק״ט",
+              label: Labels.KSHIROT_PRECENT_BY_MAKAT,
               data: keys.map(
                 (key) => (tankTemp[key].countKshir / tankTemp[key].count) * 100
               ),

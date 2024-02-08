@@ -1,11 +1,5 @@
-import {
-  Box,
-  InputAdornment,
-  Paper,
-  TextField,
-  Typography,
-} from "@mui/material";
-import SearchIcon from "@mui/icons-material/Search";
+import { Paper, Typography } from "@mui/material";
+import { TableHeader } from "./TableHeader";
 
 type graph = {
   setFilter: (e: string) => void;
@@ -25,7 +19,7 @@ export const Graph: React.FC<graph> = ({
   return (
     <Paper
       elevation={2}
-      style={{
+      sx={{
         borderRadius: "2rem",
         flex: flex ?? 1,
         display: "flex",
@@ -33,36 +27,9 @@ export const Graph: React.FC<graph> = ({
         overflow: "hidden",
       }}
     >
-      {table && (
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "center",
-            margin: "1.5rem 1.5rem",
-          }}
-        >
-          <TextField
-            onChange={(e) => setFilter(e.target.value)}
-            label="חפש לפי מקט"
-            type="number"
-            style={{ borderRadius: "10rem" }}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <SearchIcon />
-                </InputAdornment>
-              ),
-            }}
-          >
-            חפש לפי מקט
-          </TextField>
-
-          <Typography variant="h6">{title}</Typography>
-        </Box>
-      )}
-      {!table && (
+      {table ? (
+        <TableHeader setFilter={setFilter} title={title} />
+      ) : (
         <Typography
           variant="h6"
           mr="2rem"

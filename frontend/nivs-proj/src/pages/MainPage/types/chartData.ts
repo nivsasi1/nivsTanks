@@ -18,8 +18,8 @@ export type doughnutData = {
 };
 
 export type tank = {
-  carNumber: String,
-  makat: String,
-  kshirot: Boolean,
-  gdud: String,
-}
+  carNumber: String;
+  makat: String;
+  kshirot: Boolean;
+  gdud: String;
+};

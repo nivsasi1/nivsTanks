@@ -1,17 +1,17 @@
 import React, { useContext } from "react";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
-import { Box, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import { TankContext } from "../../../../store/tank-info-context";
+import { Labels } from "../../../../assets/constants";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 export const DoughnutChart: React.FC = () => {
-  
   const { tankData } = useContext(TankContext);
 
   const data = {
-    labels: ["סהכ כשירים"],
+    labels: [Labels.TOTAL_KSHIR],
     datasets: [
       {
         label: "%",
@@ -23,22 +23,12 @@ export const DoughnutChart: React.FC = () => {
 
   return (
     <>
-      <Box
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          borderRadius: "1rem",
-          height: "200px",
-          width: "100%",
-          alignSelf: "center",
-          marginTop: "2rem",
-          marginBottom: "2rem",
-        }}
-      >
-        <Doughnut data={data} />
-      </Box>
+      <Doughnut
+        style={{ margin: "0 auto", width: "200px", height: "auto" }}
+        data={data}
+      />
       <Typography style={{ direction: "rtl" }} mb={2}>
-        {tankData.doughnutChartInfo + "%" + " מהכלים כשירים "}
+        {tankData.doughnutChartInfo + "%" + Labels.FROM_KELIM}
       </Typography>
     </>
   );

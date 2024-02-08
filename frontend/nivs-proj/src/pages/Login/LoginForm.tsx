@@ -1,6 +1,6 @@
 import {
   Alert,
-  AlertTitle,
+  Box,
   Button,
   Collapse,
   IconButton,
@@ -15,6 +15,7 @@ import { TankContext, loginTry } from "../../store/tank-info-context";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CloseIcon from "@mui/icons-material/Close";
+import { Alerts, Buttons, Errors, Titles } from "../../assets/constants";
 
 type Input = {
   pernr: number;
@@ -24,7 +25,7 @@ export const LoginForm: React.FC = () => {
   const [open, setOpen] = useState(false);
   const { handleLogin, userData } = useContext(TankContext);
 
-  //navigating a signedin user to main page automatically
+  //Navigating a signedin user to main page automatically
   const navigate = useNavigate();
   useEffect(() => {
     if (userData.isLogged) {
@@ -39,7 +40,7 @@ export const LoginForm: React.FC = () => {
     const data1 = { username: data.pernr, password: "111111" };
     const returnData = await loginTry(data1);
     if (returnData.message == "success") {
-      //exist pernr, log in
+      //Exist pernr, log in
       handleLogin(
         true,
         returnData.gdud,
@@ -61,9 +62,9 @@ export const LoginForm: React.FC = () => {
     <>
       <img className="tankBG" src={tankBG} alt="background" />
       <img className="zevet100" src={logo} alt="zevetLogo" />
-      <div className="login">
+      <Box className="login">
         <Typography variant="h2" mb="2rem">
-          מערכת מצב כשירות הכלים בצה"ל
+          {Titles.MAIN_TITLE}
         </Typography>
         <Paper
           elevation={3}
@@ -73,17 +74,17 @@ export const LoginForm: React.FC = () => {
           <form onSubmit={handleSubmit(onSubmit)}>
             <TextField
               {...register("pernr", {
-                required: { value: true, message: "נא הכנס מספר אישי" },
-                minLength: { value: 6, message: "מספר אישי הוא לפחות 6 ספרות" },
+                required: { value: true, message: Errors.EMPTY_PERNR },
+                minLength: { value: 6, message: Errors.PERNR_TOOSHORT },
                 maxLength: {
                   value: 9,
-                  message: "מספר אישי הוא לא יותר מ9 ספרות",
+                  message: Errors.PERNR_TOOLONG,
                 },
                 pattern: /^[0-9]{6,9}$/,
               })}
               id="pernr"
               name="pernr"
-              label="הכנס מספר אישי"
+              label={Titles.ENTER_PERNR}
               fullWidth
               type="number"
               color="secondary"
@@ -94,27 +95,26 @@ export const LoginForm: React.FC = () => {
               }
               helperText={errors.pernr?.message}
             />
-              <Collapse in={open}>
-                <Alert
-                  severity="error"
-                  sx={{ marginTop: "1rem", marginBottom: "3rem" }}
-                  action={
-                    <IconButton
-                      aria-label="close"
-                      color="inherit"
-                      size="small"
-                      onClick={() => {
-                        setOpen(false);
-                      }}
-                    >
-                      <CloseIcon fontSize="inherit" />
-                    </IconButton>
-                  }
-                >
-                  {" "}
-                  שגיאה המשתמש לא קיים{" "}
-                </Alert>
-              </Collapse>
+            <Collapse in={open}>
+              <Alert
+                severity="error"
+                sx={{ marginTop: "1rem", marginBottom: "3rem" }}
+                action={
+                  <IconButton
+                    aria-label="close"
+                    color="inherit"
+                    size="small"
+                    onClick={() => {
+                      setOpen(false);
+                    }}
+                  >
+                    <CloseIcon fontSize="inherit" />
+                  </IconButton>
+                }
+              >
+                {Alerts.NOT_EXIST}
+              </Alert>
+            </Collapse>
             <Button
               size="large"
               color="secondary"
@@ -122,11 +122,11 @@ export const LoginForm: React.FC = () => {
               variant="contained"
               sx={{ mt: "1rem" }}
             >
-              התחבר
+              {Buttons.LOGIN}
             </Button>
           </form>
         </Paper>
-      </div>
+      </Box>
     </>
   );
 };
