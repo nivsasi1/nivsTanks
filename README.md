@@ -24,6 +24,15 @@ npm install
 npm run dev
 ```
 
+the backend is running on port 3000, and the frontend on port 5173, to open the site, http://localhost:5173/
+
+/ - (login page)
+
+/main - (main page)
+
+/addtank - (adding tank page)
+
+
 עמוד התחברות --->
 ![image](https://github.com/nivsasi1/nivsTanks/assets/136849172/0b3f907f-5417-4b1e-a086-02ba13fd3d25)
 
