@@ -1,7 +1,7 @@
 ## nivsTanks
 ### פרויקט Web Application מידע על טנקים בשפה של TypeScript וJavaScript
 
-### ספריות עיקריות:
+## Libraries:
 
 frontend: React, MUI
 
@@ -23,7 +23,7 @@ cd frontend/nivs-proj/
 npm install
 npm run dev
 ```
-### pages
+## pages
 
 the backend is running on port 3000, and the frontend on port 5173, to open the site, http://localhost:5173/
 
@@ -34,6 +34,7 @@ the backend is running on port 3000, and the frontend on port 5173, to open the 
 /addtank - (adding tank page)
 
 
+## UI
 ### עמוד התחברות --->
 ![image](https://github.com/nivsasi1/nivsTanks/assets/136849172/0b3f907f-5417-4b1e-a086-02ba13fd3d25)
 
