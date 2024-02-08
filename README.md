@@ -3,7 +3,7 @@
 
 ## Libraries:
 
-frontend: React, MUI
+frontend: React, MUI, CSS
 
 backend: Node.js, Express and express-session, passport and passport-local, mongoose
 
