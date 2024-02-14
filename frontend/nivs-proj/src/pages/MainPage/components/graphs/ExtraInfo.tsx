@@ -6,6 +6,8 @@ import { Labels } from "../../../../assets/constants";
 
 export const ExtraInfo: React.FC<{ which: boolean }> = ({ which }) => {
   const { tankData } = useContext(TankContext);
+  const color = String(theme.palette.paperBG.main); 
+  const color2 = String(theme.palette.secondary.main); 
 
   const returninfo: string = which
     ? tankData.doughnutChartInfo + Labels.PRECENT_KSHIR
@@ -20,6 +22,7 @@ export const ExtraInfo: React.FC<{ which: boolean }> = ({ which }) => {
         display: "flex",
         flexDirection: "column",
       }}
+      sx={{backgroundColor: color}}
     >
       <Paper
         elevation={2}
@@ -27,14 +30,14 @@ export const ExtraInfo: React.FC<{ which: boolean }> = ({ which }) => {
           margin: "auto",
           padding: "5rem",
           borderRadius: "2rem",
-          backgroundColor: theme.palette.secondary.main,
+          backgroundColor: color2,
         }}
       >
         <Typography
           sx={{
             direction: "rtl",
             margin: "auto",
-            color: theme.palette.secondary.contrastText,
+            color: theme.palette.mainBG.contrastText,
           }}
           variant="h4"
         >

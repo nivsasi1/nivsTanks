@@ -17,7 +17,8 @@ export const TableHeader: React.FC<{
         onChange={(e) => setFilter(e.target.value)}
         label={Labels.SEARCH_BY_MAKAT}
         type="number"
-        style={{ borderRadius: "10rem" }}
+        color="secondary"
+        sx={{backgroundColor: "#F0F3FFa0"}}
         InputProps={{
           startAdornment: (
             <InputAdornment position="start">

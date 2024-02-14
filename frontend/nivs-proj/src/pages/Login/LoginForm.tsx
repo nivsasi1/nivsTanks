@@ -16,6 +16,7 @@ import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CloseIcon from "@mui/icons-material/Close";
 import { Alerts, Buttons, Errors, Titles } from "../../assets/constants";
+import { theme } from "../../themes/themePalatte";
 
 type Input = {
   pernr: number;
@@ -24,7 +25,10 @@ type Input = {
 export const LoginForm: React.FC = () => {
   const [open, setOpen] = useState(false);
   const { handleLogin, userData } = useContext(TankContext);
-
+  const color = theme.palette.mainBG.main;
+  const paperColor = theme.palette.paperBG.main;
+  const typhography = theme.palette.mainBG.contrastText;
+  
   //Navigating a signedin user to main page automatically
   const navigate = useNavigate();
   useEffect(() => {
@@ -59,17 +63,18 @@ export const LoginForm: React.FC = () => {
 
   //as of now only check for pernr are if its a number, between 6-9 chars
   return (
-    <>
+    <Box sx={{backgroundColor:color, width:"1"}}>
       <img className="tankBG" src={tankBG} alt="background" />
       <img className="zevet100" src={logo} alt="zevetLogo" />
-      <Box className="login">
-        <Typography variant="h2" mb="2rem">
+      <Box className="login" sx={{backgroundColor:color}}>
+        <Typography variant="h2" mb="2rem" color={typhography}>
           {Titles.MAIN_TITLE}
         </Typography>
         <Paper
+        
           elevation={3}
           square={false}
-          style={{ backgroundColor: "#F0F3FFa0", padding: "7.5rem 12rem" }}
+          style={{ backgroundColor: paperColor, padding: "7.5rem 12rem" }}
         >
           <form onSubmit={handleSubmit(onSubmit)}>
             <TextField
@@ -127,6 +132,6 @@ export const LoginForm: React.FC = () => {
           </form>
         </Paper>
       </Box>
-    </>
+    </Box>
   );
 };

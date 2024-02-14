@@ -42,9 +42,6 @@ function App() {
     <ThemeProvider theme={theme}>
       <TankContextProvider>
       <RouterProvider router={router} />
-      {/* <LoginForm /> */}
-      {/* <Page><MainPage pernr='9063466' gdud={53} admin={true} /></Page> */}
-      {/* <Page><AddTank /></Page> */}
       </TankContextProvider>
     </ThemeProvider>
   );

@@ -24,6 +24,7 @@ export const theme = createTheme({
   palette: {
     mainBG: {
       main: "#FBFBFF",
+      contrastText:"black"
     },
     paperBG: {
       main: "#F0F3FFa0",
@@ -36,5 +37,22 @@ export const theme = createTheme({
       main: "#3548ab",
       contrastText: "white",
     },
+    // mainBG: {
+    //   main: "#2B1533",
+    //   contrastText:"white"
+    // },
+    // paperBG: {
+    //   main:"#DFC6FF",
+    //   contrastText:"#7518A1"
+    // },
+    // secondary:{
+    //   main: "#AD6CFC",
+    //   contrastText: "white",
+    // },
+    // logoutB: {
+    //   main: "#8E3AF4",
+    //   contrastText:"white"
+    // }
+  
   },
 });

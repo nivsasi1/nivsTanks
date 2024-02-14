@@ -1,7 +1,10 @@
 import { Box } from "@mui/material";
 import { SideBar } from "./SideBar";
+import { theme } from "../themes/themePalatte";
 
 export const Page: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const color = String(theme.palette.mainBG.main);
+
   return (
     <Box
       sx={{
@@ -9,14 +12,15 @@ export const Page: React.FC<{ children: React.ReactNode }> = ({ children }) => {
         flexDirection: "row",
         width: "100vw",
         height: "100vh",
+        backgroundColor:color
       }}
     >
       <Box
         sx={{
           flexGrow: "1",
           height: "100vh",
-          backgroundColor: "#FBFBFF",
-          overflowY: "auto",
+          ackgroundColor:color,
+                    overflowY: "auto",
         }}
       >
         {children}

@@ -5,6 +5,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { TankContext } from "../store/tank-info-context";
 import { Buttons } from "../assets/constants";
+import { theme } from "../themes/themePalatte";
 
 export const SideBar: React.FC = () => {
   const { userData, handleLogOut, handleLogin } = useContext(TankContext);
@@ -18,15 +19,15 @@ export const SideBar: React.FC = () => {
   };
 
   return (
-    <Box style={{ position: "relative", height: "100%", overflow: "hidden" }}>
+    <Box style={{ position: "relative", height: "100%", overflow: "hidden"}} sx={{backgroundColor: theme.palette.paperBG.main}}>
       <img className="tankBGSideBar" src={tankBG} alt="background" />
       <img className="zevet100" src={logo} alt="zevetLogo" />
-      <Box style={{ display: "flex", flexDirection: "column", margin: "1rem" }}>
+      <Box style={{ display: "flex", flexDirection: "column", margin: "1rem"}} >
         <NavLink to="/main">
           {({ isActive }) => (
             <Button
               size="large"
-              color={isActive ? "paperBG" : "secondary"}
+              color={isActive ? "secondary" : "paperBG"}
               variant="contained"
               fullWidth
               sx={{ mt: "10rem" }}
@@ -40,7 +41,7 @@ export const SideBar: React.FC = () => {
             {({ isActive }) => (
               <Button
                 size="large"
-                color={isActive ? "paperBG" : "secondary"}
+                color={isActive ? "secondary" : "paperBG"}
                 fullWidth
                 variant="contained"
                 sx={{ mt: "1rem" }}

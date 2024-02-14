@@ -4,11 +4,13 @@ import { Doughnut } from "react-chartjs-2";
 import { Typography } from "@mui/material";
 import { TankContext } from "../../../../store/tank-info-context";
 import { Labels } from "../../../../assets/constants";
+import { theme } from "../../../../themes/themePalatte";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 export const DoughnutChart: React.FC = () => {
   const { tankData } = useContext(TankContext);
+  const doughnutColor = theme.palette.secondary.main;
 
   const data = {
     labels: [Labels.TOTAL_KSHIR],
@@ -16,7 +18,7 @@ export const DoughnutChart: React.FC = () => {
       {
         label: "%",
         data: [tankData.doughnutChartInfo, 100 - tankData.doughnutChartInfo],
-        backgroundColor: ["#899BF8", "#FFF"],
+        backgroundColor: [doughnutColor, theme.palette.paperBG.main],
       },
     ],
   };
