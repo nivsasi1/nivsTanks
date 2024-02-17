@@ -9,6 +9,13 @@ backend: Node.js, Express and express-session, passport and passport-local, mong
 
 database: mongoDb
 
+## Docker
+
+docker-compose up -d --build 
+this will run the docker compose and start the server
+
+------no longer true because docker was added
+
 after pulling the project, for backend 
 ```
 cd backend/
