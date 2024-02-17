@@ -3,13 +3,12 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const session = require("express-session");
-const passport = require("passport");
-const LocalStrategy = require("passport-local").Strategy;
+const passport = require('./src/config/passport-config.js');
 const cors = require("cors");
-const api = require("./helpers.js");
 
 const app = express();
 const origin_url = "http://localhost";
+//const origin_url = "http://localhost:5173"; --> not docker
 //const mongo_url = "mongodb://localhost:27017/db"; --> not docker
 const mongo_url = "mongodb://host.docker.internal:27017/db";
 
@@ -41,62 +40,25 @@ app.use(
   })
 );
 
-mongoose.connect(mongo_url,
-  {
-  
-  }
-);
+mongoose.connect(mongo_url,{});
 
 mongoose.set("useCreateIndex", true);
 
-passport.use(
-  new LocalStrategy(
-    { usernameField: "username", passwordField: "password" },
-    async (username, password, done) => {
-      let user = await api.doesUserExist(username);
-      if (user === null) {
-        return done(null, false);
-      }
-      done(null, user);
-    }
-  )
-);
-
-passport.serializeUser((user, cb) => {
-  cb(null, { pernr: user.pernr });
-});
-
-passport.deserializeUser(async (user, done) => {
-  return done(null, await api.doesUserExist(user.pernr));
-});
 
 app.use(passport.initialize());
 app.use(passport.session());
 
-//----------------------------------
-//POST REQUESTS
-app.post(
-  "/login",
-  passport.authenticate("local", { failureRedirect: "/failedLogin" }),
-  api.handleLogin
-);
 
-app.get("/failedLogin", (req, res) => {
-  res.send(JSON.stringify({ message: "fail" }));
-});
+const userRoutes = require('./src/routes/auth.js');
+const rekemRoutes = require('./src/routes/car.js');
+// Use the userRoutes for all user-related routes
+app.use('/', userRoutes);
 
-app.get("/isLoggedIn", api.isLoggedIn);
+// Use the rekemRoutes for all rekem (carData) related routes
+app.use('/', rekemRoutes);
 
-//----------------------------------
-//GET REQUESTS
-app.get("/tanks", api.handleTanks);
-
-app.post("/addTank", api.handleAddTank);
-
-//----------------------------------
-//DELETE REQUESTS
-app.delete("/logout", api.handleLogout);
 
 app.listen(3000, function () {
   console.log("Server started on port 3000.");
+  console.log("tatata.");
 });
