@@ -1,6 +1,5 @@
 import { Paper, Typography } from "@mui/material";
 import { TableHeader } from "./TableHeader";
-import { theme } from "../../../themes/themePalatte";
 
 type graph = {
   setFilter: (e: string) => void;
@@ -17,7 +16,6 @@ export const Graph: React.FC<graph> = ({
   title,
   children,
 }) => {
-  const color = String(theme.palette.paperBG.main); 
   
   return (
     <Paper
@@ -28,7 +26,7 @@ export const Graph: React.FC<graph> = ({
         display: "flex",
         flexDirection: "column",
         overflow: "hidden",
-        backgroundColor: color,
+        backgroundColor: 'paperBG.main',
       }}
     >
       {table ? (

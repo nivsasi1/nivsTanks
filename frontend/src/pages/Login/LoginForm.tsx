@@ -26,10 +26,7 @@ type Input = {
 export const LoginForm: React.FC = () => {
   const [open, setOpen] = useState(false);
   const { handleLogin, userData } = useContext(TankContext);
-  const color = theme.palette.mainBG.main;
-  const paperColor = theme.palette.paperBG.main;
-  const typhography = theme.palette.mainBG.contrastText;
-  
+
   //Navigating a signedin user to main page automatically
   const navigate = useNavigate();
   useEffect(() => {
@@ -64,18 +61,20 @@ export const LoginForm: React.FC = () => {
 
   //as of now only check for pernr are if its a number, between 6-9 chars
   return (
-    <Box sx={{backgroundColor:color, width:"1"}}>
+    <Box sx={{backgroundColor:'mainBG.main', width: "100vw",height: "100vh", display:"flex", alignItems:"center", justifyContent:"center"}}>
+    <Box>
       <img className="tankBG" src={tankBG} alt="background" />
       <img className="zevet100" src={logo} alt="zevetLogo" />
-      <Box className="login" sx={{backgroundColor:color}}>
-        <Typography variant="h2" mb="2rem" color={typhography}>
+      <Box className="login" sx={{backgroundColor:'mainBG.main'}}>
+        <Typography variant="h2" mb="2rem" color={'mainBG.contrastText'}>
           {Titles.MAIN_TITLE}
         </Typography>
         <Paper
         
           elevation={3}
           square={false}
-          style={{ backgroundColor: paperColor, padding: "7.5rem 12rem" }}
+          sx={{ backgroundColor: 'paperBG.main' }}
+          style={{ padding: "7.5rem 12rem" }}
         >
           <form onSubmit={handleSubmit(onSubmit)}>
             <TextField
@@ -133,6 +132,7 @@ export const LoginForm: React.FC = () => {
           </form>
         </Paper>
       </Box>
+    </Box>
     </Box>
   );
 };

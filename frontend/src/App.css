@@ -19,10 +19,6 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
-body {
-  background-color: "#FBFBFF";
-  /* background-color:#2B1533; */  
-}
 
 .flex{
   display: flex;
@@ -34,7 +30,7 @@ body {
 }
 
 img.tankBG {
-  z-index: -1;
+  z-index: 0;
   position: fixed;
   bottom: 1rem;
   left: 1rem;
@@ -42,6 +38,8 @@ img.tankBG {
   height: auto;
   filter: blur(5px);
   opacity: 0.3;
+  mix-blend-mode: multiply;
+
 }
 
 img.tankBGSideBar {
@@ -64,7 +62,6 @@ img.zevet100 {
   width: 5rem;
   height: auto;
   filter: contrast(120%);
-  /* change side to right */
 }
 .card {
   padding: 2em;

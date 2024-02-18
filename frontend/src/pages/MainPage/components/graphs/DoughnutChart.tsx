@@ -18,7 +18,7 @@ export const DoughnutChart: React.FC = () => {
       {
         label: "%",
         data: [tankData.doughnutChartInfo, 100 - tankData.doughnutChartInfo],
-        backgroundColor: [doughnutColor, theme.palette.paperBG.main],
+        backgroundColor: [doughnutColor, "#F0F3FFa0"],
       },
     ],
   };

@@ -1,13 +1,11 @@
 import { Paper, Typography } from "@mui/material";
 import { useContext } from "react";
 import { TankContext } from "../../../../store/tank-info-context";
-import { theme } from "../../../../themes/themePalatte";
 import { Labels } from "../../../../assets/constants";
 
 export const ExtraInfo: React.FC<{ which: boolean }> = ({ which }) => {
   const { tankData } = useContext(TankContext);
-  const color = String(theme.palette.paperBG.main); 
-  const color2 = String(theme.palette.secondary.main); 
+ 
 
   const returninfo: string = which
     ? tankData.doughnutChartInfo + Labels.PRECENT_KSHIR
@@ -22,7 +20,7 @@ export const ExtraInfo: React.FC<{ which: boolean }> = ({ which }) => {
         display: "flex",
         flexDirection: "column",
       }}
-      sx={{backgroundColor: color}}
+      sx={{backgroundColor: 'paperBG.main'}}
     >
       <Paper
         elevation={2}
@@ -30,14 +28,14 @@ export const ExtraInfo: React.FC<{ which: boolean }> = ({ which }) => {
           margin: "auto",
           padding: "5rem",
           borderRadius: "2rem",
-          backgroundColor: color2,
+          backgroundColor: 'secondary.main',
         }}
       >
         <Typography
           sx={{
             direction: "rtl",
             margin: "auto",
-            color: theme.palette.mainBG.contrastText,
+            color: 'mainBG.contrastText',
           }}
           variant="h4"
         >
