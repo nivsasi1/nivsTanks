@@ -11,7 +11,8 @@ import {
 import { useForm, SubmitHandler } from "react-hook-form";
 import tankBG from "../../assets/tank.png";
 import logo from "../../assets/zevet100.jpg";
-import { TankContext, loginTry } from "../../store/tank-info-context";
+import { TankContext } from "../../store/tank-info-context";
+import { loginTry } from "../../store/functions.ts";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CloseIcon from "@mui/icons-material/Close";

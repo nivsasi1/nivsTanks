@@ -13,7 +13,8 @@ import {
 } from "@mui/material";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useContext, useEffect, useState } from "react";
-import { TankContext, addTank } from "../../store/tank-info-context";
+import { TankContext } from "../../store/tank-info-context";
+import { addTank } from "../../store/functions.ts";
 import { useNavigate } from "react-router-dom";
 import CloseIcon from "@mui/icons-material/Close";
 import { Errors, Titles, Alerts, Buttons } from "../../assets/constants";
