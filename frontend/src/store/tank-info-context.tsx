@@ -1,52 +1,15 @@
 import { createContext, useEffect, useState } from "react";
-import { theme } from "../themes/themePalatte";
 import {
   tank,
   tankData,
   children1,
-  tankNumber,
-  loginInfo,
 } from "./context-types";
 import React from "react";
-import { Data, Errors, Labels } from "../assets/constants";
+import { Labels } from "../assets/constants";
+import { isLoggedIn } from "./functions.ts";
+import { initialTankData, initialUserData, color  } from "./initialData.ts";
 
-const color = theme.palette.secondary.main;
 
-const initialTanksData: [tank] = [
-  {
-    carNumber: Data.LOADING,
-    makat: Data.LOADING,
-    kshirot: false,
-    gdud: "1",
-  },
-];
-
-const initialVerticalTanksInfo = {
-  //labels is precentage
-  labels: ["a"],
-  datasets: [
-    {
-      label: Labels.KSHIROT_PRECENT_BY_MAKAT,
-      data: [100],
-      backgroundColor: color,
-      borderRadius: 5,
-    },
-  ],
-};
-
-const initialTankData = {
-  Tanks: initialTanksData,
-  verticalTanksInfo: initialVerticalTanksInfo,
-  doughnutChartInfo: 0,
-  countKshir: 0,
-};
-
-const initialUserData = {
-  isLogged: false,
-  isManager: false,
-  gdud: "",
-  pernr: "",
-};
 
 export const TankContext = createContext({
   tankData: initialTankData,
@@ -61,45 +24,6 @@ export const TankContext = createContext({
   handleLogOut: () => {},
 });
 
-export const loginTry = async (data: loginInfo) => {
-  //workin pernr for text :8604191
-    try{
-      const response = await fetch("http://localhost:3000/login", {
-      method: "POST",
-      body: JSON.stringify(data),
-      headers: { "Content-Type": "application/json" },
-      credentials: "include",
-      mode: "cors",
-    });
-    if(response.status == 200)
-      return await response.json();
-    if(response.status == 401)
-      return {message:"fail"};
-  }
-  catch(e){
-      return {message: "something went wrong"}
-  }
-    };
-
-export const addTank = async (data: tankNumber) => {
-  const response = await fetch("http://localhost:3000/addTank", {
-    method: "POST",
-    body: JSON.stringify(data),
-    headers: { "Content-Type": "application/json" },
-    mode: "cors",
-    credentials: "include",
-  });
-  let resData;
-  try {
-    resData = await response.json();
-  } catch {
-    console.log("problem");
-  }
-  if (!response.ok) {
-    throw new Error(Errors.ADD_FAIL);
-  }
-  return resData ?? "error occured";
-};
 
 const getTanks = async () => {
   try {
@@ -110,18 +34,6 @@ const getTanks = async () => {
     return await response.json();
   } catch {
     console.log("something didnt work");
-    return null;
-  }
-};
-export const isLoggedIn = async () => {
-  try {
-    const response = await fetch("http://localhost:3000/isLoggedIn", {
-      mode: "cors",
-      credentials: "include",
-    });
-    return await response.json();
-  } catch {
-    console.log("not logged");
     return null;
   }
 };
