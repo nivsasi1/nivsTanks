@@ -17,13 +17,13 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   },
   [`&.${tableCellClasses.body}`]: {
     fontSize: 14,
-    backgroundColor: "#F0F3FFa0"
+    backgroundColor: "paperBG.main"
   },
 }));
 
-const StyledTableRow = styled(TableRow)(({ theme }) => ({
+const StyledTableRow = styled(TableRow)(({  }) => ({
   "&:nth-of-type(odd)": {
-    backgroundColor: theme.palette.paperBG.main,
+    backgroundColor: "paperBG.main",
   },
   // hide last border
   "&:last-child td, &:last-child th": {

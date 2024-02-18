@@ -8,12 +8,9 @@ import { TanksTable } from "./components/graphs/TanksTable.tsx";
 import { ExtraInfo } from "./components/graphs/ExtraInfo.tsx";
 import { useNavigate } from "react-router-dom";
 import { Graphs, Titles } from "../../assets/constants.tsx";
-import { theme } from "../../themes/themePalatte.ts";
 
 export const MainPage: React.FC = () => {
   const { setMainPage, userData } = useContext(TankContext);
-  const color = String(theme.palette.mainBG.main);
-  const typeography = String(theme.palette.mainBG.contrastText);
 
   //navigate to login page is user isnt loggedin
   const navigate = useNavigate();
@@ -35,10 +32,10 @@ export const MainPage: React.FC = () => {
 
   return (
     <>
-      <Box sx={{backgroundColor:theme.palette.mainBG.main}}>
+      <Box sx={{backgroundColor:'mainBG.main'}}>
         <Typography
           variant="h5"
-          sx={{ mt: "3rem", mr: "3rem", textAlign: "right", fontWeight: "600", color: typeography}}
+          sx={{ mt: "3rem", mr: "3rem", textAlign: "right", fontWeight: "600", color: 'mainBG.contrastText'}}
         >
           {Titles.LOGGED_IN_AS + userData.pernr}
         </Typography>
@@ -49,7 +46,7 @@ export const MainPage: React.FC = () => {
             mr: "3rem",
             textAlign: "right",
             fontWeight: "bold",
-            color:typeography
+            color:'mainBG.contrastText'
           }}
         >
           {userData.isManager && Titles.MANAGER}
@@ -60,7 +57,7 @@ export const MainPage: React.FC = () => {
         direction={{ xs: "column", sm: "row-reverse" }}
         mt="2rem"
         justifyContent="space-evenly"
-        sx={{backgroundColor:color}}
+        sx={{backgroundColor:'mainBG.main'}}
       >
         <Graph
           setFilter={handleChange}
@@ -78,7 +75,7 @@ export const MainPage: React.FC = () => {
         direction={{ xs: "column", sm: "row-reverse" }}
         mt="2rem"
         justifyContent="space-evenly"
-        sx={{backgroundColor:color}}
+        sx={{backgroundColor:'mainBG.main'}}
       >
         <Graph
           setFilter={handleChange}

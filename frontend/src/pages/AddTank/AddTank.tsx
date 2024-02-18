@@ -32,10 +32,6 @@ export const AddTank: React.FC = () => {
   const { userData, setMainPage } = useContext(TankContext);
   const navigate = useNavigate();
   const [open, setOpen] = useState({ error: false, success: false });
-  const color = String(theme.palette.paperBG.main); 
-  const typeography = String(theme.palette.secondary.main);
-  const white = String(theme.palette.mainBG.contrastText);
-  const dark = String(theme.palette.mainBG.main);
 
   //navigate to mainpage is user isnt manager, navigate to login page if isnt loggedin
   useEffect(() => {
@@ -91,21 +87,21 @@ export const AddTank: React.FC = () => {
   return (
     <>
       <Box className="addtank">
-        <Typography variant="h2" mb="2rem" color={white}>
+        <Typography variant="h2" mb="2rem" color={'mainBG.contrastText'}>
           {Titles.ADD_KLI}
         </Typography>
         <Paper
-          sx={{ width: 1 / 2, mr: "auto", ml: "auto" }}
+          sx={{ backgroundColor: 'paperBG.main', width: 1 / 2, mr: "auto", ml: "auto" }}
           elevation={3}
+          
           style={{
-            backgroundColor: color,
             borderRadius: "1rem",
             padding: "7.5rem 12rem",
           }}
           
         >
           <form onSubmit={handleSubmit(onSubmit)}>
-            <Typography variant="h6" style={{ textAlign: "right",  color: white}}>
+            <Typography variant="h6" style={{ textAlign: "right" }}>
               {Titles.INFO}
             </Typography>
             <TextField
@@ -155,7 +151,7 @@ export const AddTank: React.FC = () => {
                 helperText={errors.gdud?.message}
               />
             </Stack>
-            <Typography variant="h6" sx={{color:white}} style={{ textAlign: "right" }}>
+            <Typography variant="h6" style={{ textAlign: "right" }}>
               {Titles.CAR_KSHIROT}
             </Typography>
 
