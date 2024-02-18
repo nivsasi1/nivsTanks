@@ -3,8 +3,8 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const session = require("express-session");
-const passport = require('./src/config/passport-config.js');
 const cors = require("cors");
+const passport = require('./src/config/passport-config.js');
 
 const app = express();
 const origin_url = "http://localhost";
