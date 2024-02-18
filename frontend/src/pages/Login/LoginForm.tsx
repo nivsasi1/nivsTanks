@@ -17,7 +17,6 @@ import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CloseIcon from "@mui/icons-material/Close";
 import { Alerts, Buttons, Errors, Titles } from "../../assets/constants";
-import { theme } from "../../themes/themePalatte";
 
 type Input = {
   pernr: number;

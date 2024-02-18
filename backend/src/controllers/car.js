@@ -8,14 +8,14 @@ exports.handleAddTank = async (req, res) => {
     }
 };
   
-  exports.handleTanks = async (req, res) => {
+exports.handleTanks = async (req, res) => {
     if (isManager(req)) {
       res.send(await getAllTanks());
     } else if (req.user) {
       res.send(await getTanksByGdud(req.user.gdud));
     } else {
       // not connected
-      res.status(500);
+      res.status(500).json({message: "not authorized"});
     }
 };
 
