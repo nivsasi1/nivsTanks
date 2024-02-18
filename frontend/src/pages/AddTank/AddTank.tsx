@@ -18,7 +18,6 @@ import { addTank } from "../../store/functions.ts";
 import { useNavigate } from "react-router-dom";
 import CloseIcon from "@mui/icons-material/Close";
 import { Errors, Titles, Alerts, Buttons } from "../../assets/constants";
-import { theme } from "../../themes/themePalatte";
 
 type Input = {
   carNumber: number;

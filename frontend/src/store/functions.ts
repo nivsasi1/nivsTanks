@@ -3,7 +3,7 @@ import { tankNumber, loginInfo } from "./context-types";
 import { Errors } from "../assets/constants";
 
   export const loginTry = async (data: loginInfo) => {
-    //workin pernr for text :8604191
+    //workin pernr for text :8604191, nonManager :8667298
       try{
         const response = await fetch("http://localhost:3000/login", {
         method: "POST",

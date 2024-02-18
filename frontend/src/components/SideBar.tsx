@@ -5,7 +5,6 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { TankContext } from "../store/tank-info-context";
 import { Buttons } from "../assets/constants";
-import { theme } from "../themes/themePalatte";
 
 export const SideBar: React.FC = () => {
   const { userData, handleLogOut, handleLogin } = useContext(TankContext);
@@ -19,7 +18,7 @@ export const SideBar: React.FC = () => {
   };
 
   return (
-    <Box style={{ position: "relative", height: "100%", overflow: "hidden"}} sx={{backgroundColor: theme.palette.paperBG.main}}>
+    <Box style={{ position: "relative", height: "100%", overflow: "hidden"}} sx={{backgroundColor: 'paperBG.main'}}>
       <img className="tankBGSideBar" src={tankBG} alt="background" />
       <img className="zevet100" src={logo} alt="zevetLogo" />
       <Box style={{ display: "flex", flexDirection: "column", margin: "1rem"}} >

@@ -37,6 +37,9 @@ export const theme = createTheme({
       main: "#3548ab",
       contrastText: "white",
     },
+
+    //purple mode
+
     // mainBG: {
     //   main: "#2B1533",
     //   contrastText:"white"
